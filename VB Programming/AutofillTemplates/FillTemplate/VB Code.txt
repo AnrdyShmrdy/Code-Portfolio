@@ -1,0 +1,50 @@
+'Variable Declarations'
+
+Dim Parent1 As Range
+Dim Parent2 As Range
+Dim Parent3 As Range
+Dim Student1 As Range
+Dim Student2 As Range
+Dim Student3 As Range
+Dim Grade1 As Range
+Dim Grade2 As Range
+Dim Username1 As Range
+Dim Username2 As Range
+Dim FocusID1 As Range
+Dim FocusID2 As Range
+
+'Variable Assignment'
+
+Set Phone1 = ActiveDocument.Bookmarks("Phone1").Range
+Set Phone2 = ActiveDocument.Bookmarks("Phone2").Range
+Set Phone3 = ActiveDocument.Bookmarks("Phone3").Range
+Set Parent1 = ActiveDocument.Bookmarks("Parent1").Range
+Set Parent2 = ActiveDocument.Bookmarks("Parent2").Range
+Set Parent3 = ActiveDocument.Bookmarks("Parent3").Range
+Set Student1 = ActiveDocument.Bookmarks("Student1").Range
+Set Student2 = ActiveDocument.Bookmarks("Student2").Range
+Set Student3 = ActiveDocument.Bookmarks("Student3").Range
+Set Grade1 = ActiveDocument.Bookmarks("Grade1").Range
+Set Grade2 = ActiveDocument.Bookmarks("Grade2").Range
+Set Username1 = ActiveDocument.Bookmarks("Username1").Range
+Set Username2 = ActiveDocument.Bookmarks("Username2").Range
+Set FocusID1 = ActiveDocument.Bookmarks("FocusID1").Range
+Set FocusID2 = ActiveDocument.Bookmarks("FocusID2").Range
+
+'Value Assignment'
+
+Phone1.Text = Me.TextBox1.Value
+Phone2.Text = Me.TextBox1.Value
+Phone3.Text = Me.TextBox1.Value
+Parent1.Text = Me.TextBox2.Value
+Parent2.Text = Me.TextBox2.Value
+Parent3.Text = Me.TextBox2.Value
+Student1.Text = Me.TextBox3.Value
+Student2.Text = Me.TextBox3.Value
+Student3.Text = Me.TextBox3.Value
+Grade1.Text = Me.TextBox4.Value
+Grade2.Text = Me.TextBox4.Value
+Username1.Text = Me.TextBox5.Value
+Username2.Text = Me.TextBox5.Value
+FocusID1.Text = Me.TextBox6.Value
+FocusID2.Text = Me.TextBox6.Value
