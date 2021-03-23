@@ -1,0 +1,65 @@
+CREATE TABLE USER (
+  U_ID   	INTEGER PRIMARY KEY,
+  U_FNAME 	VARCHAR(25),
+  U_LNAME 	VARCHAR(25),
+  U_PHONE  	VARCHAR(10),
+  U_TYPE    	TEXT NOT NULL CHECK (U_TYPE IN ('customer','employee')) /* simulates boolean functionality (boolean type does not exist in SQLite */
+);
+CREATE TABLE EMPLOYEE (
+  U_ID       	INTEGER,
+  EMP_JOB       VARCHAR(50),
+  EMP_DEPT      VARCHAR(25),
+  EMP_SUP       VARCHAR(50),
+  PRIMARY KEY(U_ID),
+  FOREIGN KEY(U_ID) REFERENCES USER(U_ID),
+  FOREIGN KEY(EMP_SUP) REFERENCES USER(U_ID)
+);
+CREATE TABLE CUSTOMER (
+  U_ID          INTEGER,
+  COMP_RELAT    TEXT NOT NULL CHECK (COMP_RELAT IN ('contractor','provider')),
+  CUS_ADDR      varchar (50),
+  PRIMARY KEY(U_ID),
+  FOREIGN KEY(U_ID) REFERENCES USER(U_ID)
+);
+CREATE TABLE TICKET (
+  TICKET_NUM      INTEGER PRIMARY KEY,
+  CREATED_FOR     VARCHAR(50),
+  CREATED_BY      VARCHAR(50),
+  ASSIGNED_TO     VARCHAR(50),
+  CONTACT_TYPE    TEXT NOT NULL CHECK (CONTACT_TYPE IN ('chat','phone','email')), /* simulates enum functionality (enum type does not exist in SQLite */
+  CATEGORY        TEXT NOT NULL CHECK (CATEGORY IN ('software','hardware','inquiry/help')),
+  IS_RESOLVED     INTEGER NOT NULL CHECK (IS_RESOLVED IN (0,1)), /* simulates boolean functionality (boolean type does not exist in SQLite */
+  SHORT_DESC	  TEXT, /* Check to see how this value will be read by SQlite.Data library */
+  FULL_DESC	  TEXT,
+  FOREIGN KEY(CREATED_FOR) REFERENCES USER(U_ID),
+  FOREIGN KEY(CREATED_BY)  REFERENCES USER(U_ID),
+  FOREIGN KEY(ASSIGNED_TO) REFERENCES USER(U_ID)
+);
+
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (10000000, 'George', 'Washington', 1602221732, 'employee');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (10000001, 'John', 'Adams', 1610301735, 'employee');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (10000002, 'Thomas', 'Jefferson', 1604131743, 'employee');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (10000003, 'James', 'Madison', 1603161751, 'employee');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (10000004, 'James', 'Monroe', 1604281758, 'employee');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (20000005, 'Aaron', 'Burr', 2202061756, 'customer');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (20000006, 'George', 'Clinton', 2207261739, 'customer');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (20000007, 'Elbridge', 'Gerry', 2207171744, 'customer');
+INSERT INTO USER (U_ID, U_FNAME, U_LNAME, U_PHONE, U_TYPE) VALUES (20000008, 'Daniel', 'Tompkins', 2206211744, 'customer');
+
+INSERT INTO EMPLOYEE (U_ID, EMP_JOB, EMP_DEPT, EMP_SUP) VALUES (10000000, 'President', 'Executive', NULL);
+INSERT INTO EMPLOYEE (U_ID, EMP_JOB, EMP_DEPT, EMP_SUP) VALUES (10000001, 'President', 'Executive', 10000000);
+INSERT INTO EMPLOYEE (U_ID, EMP_JOB, EMP_DEPT, EMP_SUP) VALUES (10000002, 'President', 'Executive', 10000001);
+INSERT INTO EMPLOYEE (U_ID, EMP_JOB, EMP_DEPT, EMP_SUP) VALUES (10000003, 'President', 'Executive', 10000002);
+INSERT INTO EMPLOYEE (U_ID, EMP_JOB, EMP_DEPT, EMP_SUP) VALUES (10000004, 'President', 'Executive', NULL);
+
+INSERT INTO CUSTOMER (U_ID, COMP_RELAT, CUS_ADDR) VALUES (20000005, 'provider', '1600 Pensylvania Avenue NW Washington DC 20500');
+INSERT INTO CUSTOMER (U_ID, COMP_RELAT, CUS_ADDR) VALUES (20000006, 'contractor', '1600 Pensylvania Avenue NW Washington DC 20500');
+INSERT INTO CUSTOMER (U_ID, COMP_RELAT, CUS_ADDR) VALUES (20000007, 'contractor', '1600 Pensylvania Avenue NW Washington DC 20500');
+INSERT INTO CUSTOMER (U_ID, COMP_RELAT, CUS_ADDR) VALUES (20000008, 'contractor', '1600 Pensylvania Avenue NW Washington DC 20500');
+
+INSERT INTO TICKET (TICKET_NUM, CREATED_FOR, CREATED_BY, ASSIGNED_TO, CONTACT_TYPE, CATEGORY, IS_RESOLVED, SHORT_DESC, FULL_DESC)
+VALUES (30000000, 10000002, 10000001, NULL, 'chat','inquiry/help',1, 'I hate being Vice-President',
+'Help! I have to be vice-president to John Adams, whom I absolutely despise!');
+
+
+
